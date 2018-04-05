@@ -1,7 +1,6 @@
 package com.company;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.util.Scanner;
 
 public class Main {
@@ -36,27 +35,27 @@ public class Main {
         StringBuilder str = new StringBuilder();
 
         File direct = new File(aDir);
-            File[] listFiles = direct.listFiles();
-            if (listFiles != null) {
-                for (int i = 0; i < listFiles.length; i++) {
-                    if (listFiles[i].isDirectory()) {
-                        str.append(listFiles[i].getParent());
-                        str.append(System.getProperty("line.separator"));
-                        str.append("\t");
-                        str.append(indent);
-                        str.append(listFiles[i].getPath());
-                        str.append("\\");
-                        str.append(System.getProperty("line.separator"));
-                        str.append(rec(listFiles[i].getPath(), depth + 1));
-                    } else {
-                        str.append("\t");
-                        str.append(indent);
-                        str.append(listFiles[i].getPath());
-                        str.append(System.getProperty("line.separator"));
-                    }
+        File[] listFiles = direct.listFiles();
+        if (listFiles != null) {
+            for (int i = 0; i < listFiles.length; i++) {
+                if (listFiles[i].isDirectory()) {
+                    str.append(listFiles[i].getParent());
+                    str.append(System.getProperty("line.separator"));
+                    str.append("\t");
+                    str.append(indent);
+                    str.append(listFiles[i].getPath());
+                    str.append("\\");
+                    str.append(System.getProperty("line.separator"));
+                    str.append(rec(listFiles[i].getPath(), depth + 1));
+                } else {
+                    str.append("\t");
+                    str.append(indent);
+                    str.append(listFiles[i].getPath());
+                    str.append(System.getProperty("line.separator"));
                 }
             }
-            return str.toString();
+        }
+        return str.toString();
     }
 
     public static boolean saveToFile(String pathFile, String sourse) {
@@ -89,12 +88,12 @@ public class Main {
     public static String readFromFile(File file) throws FileNotFoundException {
         StringBuilder sb = new StringBuilder();
 
-        if (!file.exists()){
+        if (!file.exists()) {
             throw new FileNotFoundException(file.getName());
         }
 
         try {
-            BufferedReader in = new BufferedReader(new FileReader( file.getAbsoluteFile()));
+            BufferedReader in = new BufferedReader(new FileReader(file.getAbsoluteFile()));
             try {
                 String s;
                 while ((s = in.readLine()) != null) {
@@ -104,7 +103,7 @@ public class Main {
             } finally {
                 in.close();
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
